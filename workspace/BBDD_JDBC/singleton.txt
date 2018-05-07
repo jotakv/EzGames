@@ -1,0 +1,13 @@
+ecesitas una conexión en tu aplicación Java? 
+¿Harto de abrir varias instancias cada vez que quieres conectarte a MySQL? 
+¿Estás leyendo esto con voz de anuncio?
+Entonces el patrón Singleton es tu nuevo mejor amigo.
+
+El patrón Singleton, o patrón de instancia única, es un patrón de diseño 
+encargado de restringir la creación de objetos de una clase 
+(o el valor de un tipo) a un único objeto. 
+Genera una única instancia en la ejecución del programa y 
+proporciona un acceso global a la misma.
+
+Sirve para multitud de funcionalidades, pero en este caso 
+vamos a ver su aplicación a la hora de conectarnos a una base de datos MySQL.
