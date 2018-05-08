@@ -14,10 +14,10 @@ public class EjemploSingleton {
 	// Constructor
 	private EjemploSingleton() {
 
-		String url = "jdbc:mysql://localhost:3306/test";
+		String url = "jdbc:mysql://localhost:3306/pruebaaa";
 		String driver = "com.mysql.jdbc.Driver";
-		String usuario = "usuario";
-		String password = "password";
+		String usuario = "root";
+		String password = "";
 
 		try {
 			Class.forName(driver);

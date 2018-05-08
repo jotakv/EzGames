@@ -261,7 +261,7 @@ INSERT INTO `pedidos` (`NÚMERODEPEDIDO`, `CÓDIGOCLIENTE`, `FECHADEPEDIDO`, `FO
 
 CREATE TABLE IF NOT EXISTS `productos` (
   `CÓDIGOARTÍCULO` varchar(4) DEFAULT NULL,
-  `PLATAFORMA` varchar(11) DEFAULT NULL,
+  `SECCIÓN` varchar(11) DEFAULT NULL,
   `NOMBREARTÍCULO` varchar(19) DEFAULT NULL,
   `PRECIO` decimal(10,0) DEFAULT NULL,
   `FECHA` varchar(10) DEFAULT NULL,
@@ -274,10 +274,10 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`CÓDIGOARTÍCULO`, `PLATAFORMA`, `NOMBREARTÍCULO`, `PRECIO`, `FECHA`, `IMPORTADO`, `PAÍSDEORIGEN`, `FOTO`) VALUES
-('AR01', 'PC', 'LOL', '7', '22/10/2000', 'FALSO', 'ESPAÑA', 'JUAN MANUEL.pdf'),
-('AR03', 'PS4', 'COD', '183', '26/05/2002', 'VERDADERO', 'MARRUECOS', NULL),
-('AR04', 'XBOXONE', 'FIFA', '107', '20/03/2000', 'VERDADERO', 'USA', NULL),
+INSERT INTO `productos` (`CÓDIGOARTÍCULO`, `SECCIÓN`, `NOMBREARTÍCULO`, `PRECIO`, `FECHA`, `IMPORTADO`, `PAÍSDEORIGEN`, `FOTO`) VALUES
+('AR01', 'FERRETERÍA', 'DESTORNILLADOR', '7', '22/10/2000', 'FALSO', 'ESPAÑA', 'JUAN MANUEL.pdf'),
+('AR03', 'JUGUETERÍA', 'COCHE TELEDIRIGIDO', '183', '26/05/2002', 'VERDADERO', 'MARRUECOS', NULL),
+('AR04', 'DEPORTES', 'RAQUETA TENIS', '107', '20/03/2000', 'VERDADERO', 'USA', NULL),
 ('AR06', 'DEPORTES', 'MANCUERNAS', '69', '13/09/2000', 'VERDADERO', 'USA', NULL),
 ('AR07', 'CONFECCIÓN', 'SERRUCHO', '35', '23/03/2001', 'VERDADERO', 'FRANCIA', NULL),
 ('AR08', 'JUGUETERÍA', 'CORREPASILLOS', '118', '11/04/2000', 'VERDADERO', 'JAPÓN', NULL),
@@ -371,7 +371,6 @@ CREATE TABLE IF NOT EXISTS `usuarios_pass` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `USUARIOS` varchar(20) NOT NULL,
   `PASSWORD` varchar(256) NOT NULL,
-  `ADMINISTRADOR` int(1) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
@@ -379,12 +378,12 @@ CREATE TABLE IF NOT EXISTS `usuarios_pass` (
 -- Volcado de datos para la tabla `usuarios_pass`
 --
 
-INSERT INTO `usuarios_pass` (`ID`, `USUARIOS`, `PASSWORD`, `ADMINISTRADOR`) VALUES
-(1, 'JUAN', '1234', 0),
-(2, 'Maria', '54321', 0),
-(12, 'Antonio', '$2y$10$SfUUdO9IQJju5Jv/zNlt8ewWEl2L3n/Rtd0f1NkBclY/I1KYJQRf2',0),
-(15, 'Sandra', '$2y$12$85KDOxyvQYjaAh8addW7.uP16GcoIP3dzjQJvkUITaq9d3c6a4kya', 1),
-(16, 'Luis', '$2y$12$3Vq6lyaQ4bvwveHgBWzzfu0BphyakpmeOK0v55WpdNruMdskxjcbO', 0);
+INSERT INTO `usuarios_pass` (`ID`, `USUARIOS`, `PASSWORD`) VALUES
+(1, 'JUAN', '1234'),
+(2, 'Maria', '54321'),
+(12, 'Antonio', '$2y$10$SfUUdO9IQJju5Jv/zNlt8ewWEl2L3n/Rtd0f1NkBclY/I1KYJQRf2'),
+(15, 'Sandra', '$2y$12$85KDOxyvQYjaAh8addW7.uP16GcoIP3dzjQJvkUITaq9d3c6a4kya'),
+(16, 'Luis', '$2y$12$3Vq6lyaQ4bvwveHgBWzzfu0BphyakpmeOK0v55WpdNruMdskxjcbO');
 
 --
 -- Restricciones para tablas volcadas

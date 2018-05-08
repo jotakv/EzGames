@@ -11,18 +11,18 @@ public class ConectaPruebas {
 			// password: ""
 			// "" es vacio
 			Connection miConexion = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/pruebas", "root", "");
+					"jdbc:mysql://localhost:3306/pruebaaa", "root", "");
 			// lanzar una query
 
 			Statement miSatatement = miConexion.createStatement();
 			// ejecutar instruccion sql
 			ResultSet miResultSet = miSatatement
-					.executeQuery("SELECT * FROM PRODUCTOS");
+					.executeQuery("SELECT * FROM PRODUCTOS WHERE PLATAFORMA='PC'");
 
 			while (miResultSet.next()) {
 
 				System.out.println(miResultSet.getString("CÓDIGOARTÍCULO")
-						+ " " + miResultSet.getString("NOMBREARTÍCULO") + ""
+						+ " " + miResultSet.getString("NOMBREARTÍCULO") + " "
 						+ miResultSet.getString("PRECIO"));
 			}
 
