@@ -6,9 +6,11 @@
 package gui;
 
 import Control.Controlador;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
 import javax.swing.JFrame;
 
 /**
@@ -98,6 +100,7 @@ public class Diseno extends JFrame {
 				jTextField1ActionPerformed(evt);
 			}
 		});
+		jToggleButton1.setName("Buscar");
 
 		jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,7 +586,6 @@ public class Diseno extends JFrame {
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
 		login.setVisible(true);
-		
 
 	}// GEN-LAST:event_jButton1ActionPerformed
 
@@ -593,6 +595,8 @@ public class Diseno extends JFrame {
 
 	private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jToggleButton1ActionPerformed
 		// TODO add your handling code here:
+		System.out.println("buscando..." + jTextField1.getText());
+		Controlador.getInstance().buscarProducto(jTextField1.getText());
 	}// GEN-LAST:event_jToggleButton1ActionPerformed
 
 	/**

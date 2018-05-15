@@ -2,6 +2,7 @@ package datos;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -13,8 +14,12 @@ public class Gestion implements Observator {
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Administrador> administradores;
 	private ArrayList<Producto> productos;
+	private DbConnection conex;
+	private PreparedStatement consulta;
+	private ResultSet res;
 
 	public Gestion() {
+		conex = new DbConnection();
 		usuarios = new ArrayList<Usuario>();
 		administradores = new ArrayList<Administrador>();
 		productos = new ArrayList<Producto>();
@@ -23,49 +28,56 @@ public class Gestion implements Observator {
 		obtenerProductos();
 	}
 
+	private void ejecutarConsulta(String consultaSQL) {
+		consulta = null;
+		res = null;
+		try {
+			consulta = conex.getConnection().prepareStatement(consultaSQL);
+			res = consulta.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void obtenerUsuarios() {
 
-		DbConnection conex = new DbConnection();
-
 		try {
-			PreparedStatement consulta = conex.getConnection()
-					.prepareStatement("SELECT * FROM usuarios_pass");
-			ResultSet res = consulta.executeQuery();
+			ejecutarConsulta("SELECT * FROM usuarios_pass");
 			System.out.println("ID  NOMBRE PASSWORD  ADMINISTRADOR");
-			while (res.next()) {
-				// persona.setIdPersona(Integer.parseInt(res.getString("id")));
-				int id = res.getInt("ID");
 
-				// persona.setNombre(res.getString("USUARIOS"));
+			while (res.next()) {
+				int id = res.getInt("ID");
 				String name = res.getString("USUARIOS");
 				String pass = res.getString("PASSWORD");
 				int isAdmin = res.getInt("ADMINISTRADOR");
-				// quitar esta linea
-				// y todos los System.out en general
+				// quitar esta lineay todos los System.out en general
 				System.out.println(id + "  " + name + "   " + pass + " "
 						+ isAdmin + " ");
 				if (isAdmin == 1) {
 					administradores.add(new Administrador(id, pass, name, "",
-							""));//
+							""));
 				} else {
 					usuarios.add(new Usuario(id, pass, name, "", ""));
 				}
-
-				// la siguiente linea es una prueba
-
-				// obviamente hay que coregirla
-
 			}
-			res.close();
-			consulta.close();
-			conex.desconectar();
-
+			protocoloFinalizarConsulta();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-					"no se pudo consultar la Persona\n" + e);
+					"no se pudo consultar la Persona\n" + e.toString());
+		}
+	}
+
+	private void protocoloFinalizarConsulta() {
+		// TODO Auto-generated method stub
+		try {
+			res.close();
+			consulta.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// return miEmpleado;
 	}
 
 	private void obtenerAdministrador() {
@@ -74,8 +86,35 @@ public class Gestion implements Observator {
 	}
 
 	private void obtenerProductos() {
-		// throw new UnsupportedOperationException("Not supported yet."); //To
-		// change body of generated methods, choose Tools | Templates.
+		try {
+			ejecutarConsulta("SELECT * FROM productos");
+			System.out
+					.println("CodArticulo  Plataforma Nombre articulo  precio");
+			while (res.next()) {
+				String cod = res.getString("CÓDIGOARTÍCULO");
+				String plat = res.getString("PLATAFORMA");
+				String nomartic = res.getString("NOMBREARTÍCULO");
+				double precio = res.getDouble("PRECIO");
+				productos.add(new Producto(cod, nomartic, plat, precio, 12));
+				// quitar esta lineay todos los System.out en general
+				System.out.println("  " + cod + "   " + plat + " " + nomartic
+						+ " " + precio);
+
+			}
+			protocoloFinalizarConsulta();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public boolean existeProducto(String nombre) {
+		for (Producto p : productos) {
+			if (nombre.equalsIgnoreCase(p.get_nombre())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
