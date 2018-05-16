@@ -6,13 +6,14 @@ public class Persona {
 	private String _nombre;
 	private String _apellido;
 	private String _correo;
-	private int isAdmin;
+	private int _admin;
 
-	public Persona(int id, String passwd, String name, String apellido,
-			String correo) {
+	public Persona(int id, String passwd, String name, int admin,
+			String apellido, String correo) {
 		_id = id;
 		_passwd = passwd;
 		_nombre = name;
+		_admin = admin;
 		_apellido = apellido;
 		_correo = correo;
 	}
@@ -28,5 +29,8 @@ public class Persona {
 	public void setNombre(String nombre) {
 		// TODO Auto-generated method stub
 		this._nombre = nombre;
+	}
+	public int get_admin() {
+		return _admin;
 	}
 }

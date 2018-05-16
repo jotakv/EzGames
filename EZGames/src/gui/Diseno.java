@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 
+import datos.Producto;
+
 /**
  *
  * @author usuario_local
@@ -20,6 +22,7 @@ import javax.swing.JFrame;
 public class Diseno extends JFrame {
 
 	public Login login = new Login(this);
+	private Producto p;
 
 	/**
 	 * Creates new form Diseño
@@ -127,7 +130,7 @@ public class Diseno extends JFrame {
 		jLabel3.setToolTipText("");
 
 		jList1.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
+			String[] strings = { "Item 1fsfsdf", "Item 2", "Item 3", "Item 4",
 					"Item 5" };
 
 			public int getSize() {
@@ -596,8 +599,27 @@ public class Diseno extends JFrame {
 	private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jToggleButton1ActionPerformed
 		// TODO add your handling code here:
 		System.out.println("buscando..." + jTextField1.getText());
-		Controlador.getInstance().buscarProducto(jTextField1.getText());
+		p = Controlador.getInstance().buscarProducto(jTextField1.getText());
+		if (p != null) {
+			actualizarLista();
+		}
 	}// GEN-LAST:event_jToggleButton1ActionPerformed
+
+	private void actualizarLista() {
+		// TODO Auto-generated method stub
+		jList1.setModel(new javax.swing.AbstractListModel<String>() {
+			String[] strings = {p.get_nombre(), p.get_genero(),
+					Double.toString(p.get_precio()) };
+
+			public int getSize() {
+				return strings.length;
+			}
+
+			public String getElementAt(int i) {
+				return strings[i];
+			}
+		});
+	}
 
 	/**
 	 * @param args

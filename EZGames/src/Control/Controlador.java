@@ -3,6 +3,7 @@ package Control;
 import javax.swing.JOptionPane;
 
 import datos.Gestion;
+import datos.Producto;
 
 public final class Controlador implements Observator<Object> {
 
@@ -10,7 +11,6 @@ public final class Controlador implements Observator<Object> {
 	// atributo privado estatico de la clase
 	private Gestion gestion;
 	private boolean loged;
-	private boolean existeProducto;
 
 	/**
 	 * Constructor privado (PATRON SINGLETON)
@@ -77,12 +77,14 @@ public final class Controlador implements Observator<Object> {
 																		// Templates.
 	}
 
-	public void buscarProducto(String nombre) {
-		existeProducto = gestion.existeProducto(nombre);
-		if (existeProducto)
+	public Producto buscarProducto(String nombre) {
+		Producto p = gestion.existeProducto(nombre);
+		if (p != null)
 			JOptionPane.showMessageDialog(null, "Producto encontrado\n");
 		else
 			JOptionPane.showMessageDialog(null, "Producto no encontrado\n");
+
+		return p;
 	}
 
 	public void login(String usuario, String passwd) {

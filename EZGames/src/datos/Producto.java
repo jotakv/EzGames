@@ -16,8 +16,20 @@ public class Producto {
 		_stock = stock;
 	}
 
+	public Producto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String get_nombre() {
 		return _nombre;
+	}
+
+	public String get_genero() {
+		return _genero;
+	}
+
+	public double get_precio() {
+		return _precio;
 	}
 
 }

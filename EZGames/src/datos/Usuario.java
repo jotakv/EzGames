@@ -9,10 +9,11 @@ package datos;
  *
  * @author usuario_local
  */
-public class Usuario extends Persona{
-    
-    public Usuario(int id, String passwd, String name, String apellido, String correo) {
-        super(id, passwd, name, apellido, correo);
-    }
-    
+public class Usuario extends Persona {
+
+	public Usuario(int id, String passwd, String name, int admin,
+			String apellido, String correo) {
+		super(id, passwd, name, admin, apellido, correo);
+	}
+
 }

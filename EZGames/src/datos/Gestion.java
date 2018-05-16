@@ -17,6 +17,8 @@ public class Gestion implements Observator {
 	private DbConnection conex;
 	private PreparedStatement consulta;
 	private ResultSet res;
+	private ProductoDAO productoDAO;
+	private PersonaDAO personaDAO;
 
 	public Gestion() {
 		conex = new DbConnection();
@@ -41,42 +43,15 @@ public class Gestion implements Observator {
 	}
 
 	private void obtenerUsuarios() {
-
-		try {
-			ejecutarConsulta("SELECT * FROM usuarios_pass");
-			System.out.println("ID  NOMBRE PASSWORD  ADMINISTRADOR");
-
-			while (res.next()) {
-				int id = res.getInt("ID");
-				String name = res.getString("USUARIOS");
-				String pass = res.getString("PASSWORD");
-				int isAdmin = res.getInt("ADMINISTRADOR");
-				// quitar esta lineay todos los System.out en general
-				System.out.println(id + "  " + name + "   " + pass + " "
-						+ isAdmin + " ");
-				if (isAdmin == 1) {
-					administradores.add(new Administrador(id, pass, name, "",
-							""));
-				} else {
-					usuarios.add(new Usuario(id, pass, name, "", ""));
-				}
+		personaDAO = new PersonaDAO();
+		ArrayList<Persona> personas = new ArrayList<Persona>();
+		personas = personaDAO.listaDePersonas();
+		for (Persona persona : personas) {
+			if (persona.get_admin() == 1) {
+				administradores.add((Administrador) persona);
+			} else {
+				usuarios.add((Usuario) persona);
 			}
-			protocoloFinalizarConsulta();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,
-					"no se pudo consultar la Persona\n" + e.toString());
-		}
-	}
-
-	private void protocoloFinalizarConsulta() {
-		// TODO Auto-generated method stub
-		try {
-			res.close();
-			consulta.close();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -86,35 +61,17 @@ public class Gestion implements Observator {
 	}
 
 	private void obtenerProductos() {
-		try {
-			ejecutarConsulta("SELECT * FROM productos");
-			System.out
-					.println("CodArticulo  Plataforma Nombre articulo  precio");
-			while (res.next()) {
-				String cod = res.getString("CÓDIGOARTÍCULO");
-				String plat = res.getString("PLATAFORMA");
-				String nomartic = res.getString("NOMBREARTÍCULO");
-				double precio = res.getDouble("PRECIO");
-				productos.add(new Producto(cod, nomartic, plat, precio, 12));
-				// quitar esta lineay todos los System.out en general
-				System.out.println("  " + cod + "   " + plat + " " + nomartic
-						+ " " + precio);
-
-			}
-			protocoloFinalizarConsulta();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		productoDAO = new ProductoDAO();
+		productos = productoDAO.listaDeProductos();
 	}
 
-	public boolean existeProducto(String nombre) {
+	public Producto existeProducto(String nombre) {
 		for (Producto p : productos) {
 			if (nombre.equalsIgnoreCase(p.get_nombre())) {
-				return true;
+				return p;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/**
