@@ -34,8 +34,8 @@ public class ProductoDAO {
 				String nomartic = res.getString("NOMBREARTÍCULO");
 				double precio = res.getDouble("PRECIO");
 				productos.add(new Producto(cod, nomartic, plat, precio, 12));
-				System.out.println(cod + "--------" + plat + "--------" + nomartic + "--------"
-						+ precio);
+				System.out.println(cod + "--------" + plat + "--------"
+						+ nomartic + "--------" + precio);
 			}
 			res.close();
 			consulta.close();
@@ -47,5 +47,4 @@ public class ProductoDAO {
 		}
 		return productos;
 	}
-
 }

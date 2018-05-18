@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import datos.Producto;
@@ -57,7 +58,7 @@ public class Diseno extends JFrame {
 		jLabel2 = new javax.swing.JLabel();
 		jLabel3 = new javax.swing.JLabel();
 		jScrollPane2 = new javax.swing.JScrollPane();
-		jList1 = new javax.swing.JList<>();
+		resultadoBusqueda = new javax.swing.JList<>();
 		jScrollPane3 = new javax.swing.JScrollPane();
 		jList2 = new javax.swing.JList<>();
 		jLabel4 = new javax.swing.JLabel();
@@ -65,10 +66,10 @@ public class Diseno extends JFrame {
 		jButton4 = new javax.swing.JButton();
 		jButton5 = new javax.swing.JButton();
 		jScrollPane1 = new javax.swing.JScrollPane();
-		jTextArea1 = new javax.swing.JTextArea();
+		informacion = new javax.swing.JTextArea();
 		jLabel5 = new javax.swing.JLabel();
 		jScrollPane4 = new javax.swing.JScrollPane();
-		jTextArea2 = new javax.swing.JTextArea();
+		valoraciones = new javax.swing.JTextArea();
 		jLabel6 = new javax.swing.JLabel();
 
 		javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(
@@ -129,9 +130,8 @@ public class Diseno extends JFrame {
 		jLabel3.setText("Resultados de la búsqueda");
 		jLabel3.setToolTipText("");
 
-		jList1.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = { "Item 1fsfsdf", "Item 2", "Item 3", "Item 4",
-					"Item 5" };
+		resultadoBusqueda.setModel(new javax.swing.AbstractListModel<String>() {
+			String[] strings = { "----", "----", "----", "----", "----" };
 
 			public int getSize() {
 				return strings.length;
@@ -141,7 +141,7 @@ public class Diseno extends JFrame {
 				return strings[i];
 			}
 		});
-		jScrollPane2.setViewportView(jList1);
+		jScrollPane2.setViewportView(resultadoBusqueda);
 
 		jList2.setModel(new javax.swing.AbstractListModel<String>() {
 			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
@@ -169,15 +169,17 @@ public class Diseno extends JFrame {
 
 		jButton5.setText("<< Quitar de cesta");
 
-		jTextArea1.setColumns(20);
-		jTextArea1.setRows(5);
-		jScrollPane1.setViewportView(jTextArea1);
+		informacion.setColumns(20);
+		informacion.setRows(5);
+		jScrollPane1.setViewportView(informacion);
+		informacion.setEditable(false);
 
-		jLabel5.setText("Información");
+		jLabel5.setText("Informacion");
 
-		jTextArea2.setColumns(20);
-		jTextArea2.setRows(5);
-		jScrollPane4.setViewportView(jTextArea2);
+		valoraciones.setColumns(20);
+		valoraciones.setRows(5);
+		jScrollPane4.setViewportView(valoraciones);
+		valoraciones.setEditable(false);
 
 		jLabel6.setText("Valoraciones");
 
@@ -607,9 +609,8 @@ public class Diseno extends JFrame {
 
 	private void actualizarLista() {
 		// TODO Auto-generated method stub
-		jList1.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = {p.get_nombre(), p.get_genero(),
-					Double.toString(p.get_precio()) };
+		resultadoBusqueda.setModel(new javax.swing.AbstractListModel<String>() {
+			String[] strings = { p.get_nombre() };
 
 			public int getSize() {
 				return strings.length;
@@ -619,6 +620,10 @@ public class Diseno extends JFrame {
 				return strings[i];
 			}
 		});
+		informacion.setText("Precio:\t" + p.get_nombre() + "\n"
+				+ "Plataforma:\t" + p.get_genero() + "\nPrecio:\t"
+				+ Double.toString(p.get_precio()));
+
 	}
 
 	/**
@@ -632,6 +637,7 @@ public class Diseno extends JFrame {
 	private javax.swing.JButton jButton3;
 	private javax.swing.JButton jButton4;
 	private javax.swing.JButton jButton5;
+	 
 	private javax.swing.JComboBox<String> jComboBox1;
 	private javax.swing.JDialog jDialog1;
 	private javax.swing.JLabel jLabel1;
@@ -640,7 +646,7 @@ public class Diseno extends JFrame {
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JLabel jLabel5;
 	private javax.swing.JLabel jLabel6;
-	private javax.swing.JList<String> jList1;
+	private javax.swing.JList<String> resultadoBusqueda;
 	private javax.swing.JList<String> jList2;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JRadioButton jRadioButton1;
@@ -651,8 +657,8 @@ public class Diseno extends JFrame {
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JScrollPane jScrollPane3;
 	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JTextArea jTextArea1;
-	private javax.swing.JTextArea jTextArea2;
+	private javax.swing.JTextArea informacion;
+	private javax.swing.JTextArea valoraciones;
 	private javax.swing.JTextField jTextField1;
 	private javax.swing.JToggleButton jToggleButton1;
 	// End of variables declaration//GEN-END:variables

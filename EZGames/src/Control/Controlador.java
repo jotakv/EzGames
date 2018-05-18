@@ -1,5 +1,7 @@
 package Control;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import datos.Gestion;
@@ -75,6 +77,10 @@ public final class Controlador implements Observator<Object> {
 																		// Tools
 																		// |
 																		// Templates.
+	}
+
+	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
+		return gestion.obtenerProductosPlataforma(plataforma);
 	}
 
 	public Producto buscarProducto(String nombre) {

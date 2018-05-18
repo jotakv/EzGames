@@ -65,6 +65,16 @@ public class Gestion implements Observator {
 		productos = productoDAO.listaDeProductos();
 	}
 
+	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
+		ArrayList<Producto> prodTemp = new ArrayList<Producto>();
+		for (Producto p : productos) {
+			if (plataforma.equalsIgnoreCase(plataforma)) {
+				prodTemp.add(p);
+			}
+		}
+		return prodTemp;
+	}
+
 	public Producto existeProducto(String nombre) {
 		for (Producto p : productos) {
 			if (nombre.equalsIgnoreCase(p.get_nombre())) {
