@@ -5,13 +5,16 @@
  */
 package gui;
 
-import Control.Controlador;
+import control.Controlador;
+import control.Observator;
+import control.ObservatorClases;
 
 /**
  *
- * @author usuario_local
+ * @author EZGames
+ * @param <T>
  */
-public class Login extends javax.swing.JDialog {
+public class Login extends javax.swing.JDialog{
 
     /**
      * Creates new form Login
@@ -52,6 +55,7 @@ public class Login extends javax.swing.JDialog {
         botonAcceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAccederActionPerformed(evt);
+                setVisible(false);
             }
         });
 
@@ -124,9 +128,6 @@ public class Login extends javax.swing.JDialog {
         Controlador.getInstance().login(textoUsuario.getText(), textoPasswd.getText());
     }//GEN-LAST:event_botonAccederActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAcceder;
@@ -137,4 +138,5 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JPasswordField textoPasswd;
     private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

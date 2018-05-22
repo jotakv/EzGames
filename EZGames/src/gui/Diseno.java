@@ -5,31 +5,76 @@
  */
 package gui;
 
-import Control.Controlador;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import control.Controlador;
+import control.Observator;
+import control.ObservatorClases;
 import datos.Producto;
+import datos.Valoracion;
 
 /**
  *
  * @author usuario_local
  */
-public class Diseno extends JFrame {
+public class Diseno extends JFrame implements ObservatorClases {
 
-	public Login login = new Login(this);
-	private Producto p;
+	private javax.swing.JButton botonLogin;
+	private javax.swing.JButton BotonPerfil;
+	private javax.swing.JButton botonComprar;
+	private javax.swing.JButton botonAnadirCesta;
+	private javax.swing.JButton jButton5;
+	private javax.swing.JComboBox<String> jComboBox1;
+	private javax.swing.JDialog jDialog1;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JLabel jLabel5;
+	private javax.swing.JLabel jLabel6;
+	private javax.swing.JList<String> listaProductos;
+	private javax.swing.JList<String> jList2;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JRadioButton jRadioButton1;
+	private javax.swing.JRadioButton jRadioButton2;
+	private javax.swing.JRadioButton jRadioButton3;
+	private javax.swing.JRadioButton jRadioButton4;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JScrollPane jScrollPane2;
+	private javax.swing.JScrollPane jScrollPane3;
+	private javax.swing.JScrollPane jScrollPane4;
+	private javax.swing.JTextArea informacion;
+	private javax.swing.JTextArea textoValoraciones;
+	private javax.swing.JTextField jTextField1;
+	private javax.swing.JToggleButton jToggleButton1;
+
+	private boolean usuarioLogueado;
+
+	private Login login = new Login(this);
+	private InfoUsuario infoUsuario;
+
+	private ArrayList<Producto> productosMostrados;
+	private ArrayList<Valoracion> valoracionesMostradas;
+	DefaultListModel modelo;
 
 	/**
 	 * Creates new form Diseño
 	 */
 	public Diseno() {
 		initComponents();
+		
+		Controlador.getInstance().addObservador(this);
 		this.setVisible(true);
 	}
 
@@ -42,11 +87,11 @@ public class Diseno extends JFrame {
 	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-
+		modelo = new DefaultListModel<>();
 		jDialog1 = new javax.swing.JDialog();
 		jPanel1 = new javax.swing.JPanel();
-		jButton1 = new javax.swing.JButton();
-		jButton2 = new javax.swing.JButton();
+		botonLogin = new javax.swing.JButton();
+		BotonPerfil = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
 		jTextField1 = new javax.swing.JTextField();
 		jToggleButton1 = new javax.swing.JToggleButton();
@@ -58,18 +103,18 @@ public class Diseno extends JFrame {
 		jLabel2 = new javax.swing.JLabel();
 		jLabel3 = new javax.swing.JLabel();
 		jScrollPane2 = new javax.swing.JScrollPane();
-		resultadoBusqueda = new javax.swing.JList<>();
+		listaProductos = new javax.swing.JList<>();
 		jScrollPane3 = new javax.swing.JScrollPane();
 		jList2 = new javax.swing.JList<>();
 		jLabel4 = new javax.swing.JLabel();
-		jButton3 = new javax.swing.JButton();
-		jButton4 = new javax.swing.JButton();
+		botonComprar = new javax.swing.JButton();
+		botonAnadirCesta = new javax.swing.JButton();
 		jButton5 = new javax.swing.JButton();
 		jScrollPane1 = new javax.swing.JScrollPane();
 		informacion = new javax.swing.JTextArea();
 		jLabel5 = new javax.swing.JLabel();
 		jScrollPane4 = new javax.swing.JScrollPane();
-		valoraciones = new javax.swing.JTextArea();
+		textoValoraciones = new javax.swing.JTextArea();
 		jLabel6 = new javax.swing.JLabel();
 
 		javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(
@@ -83,15 +128,25 @@ public class Diseno extends JFrame {
 				Short.MAX_VALUE));
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-		jButton1.setText("Login");
-		jButton1.addActionListener(new java.awt.event.ActionListener() {
+		
+		botonLogin.setText("Login");
+		botonLogin.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton1ActionPerformed(evt);
+				botonLoginActionPerformed(evt);
 			}
 		});
 
-		jButton2.setText("Perfil");
+		BotonPerfil.setText("Perfil");
+		BotonPerfil.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(usuarioLogueado)infoUsuario.setVisible(true);
+				else JOptionPane.showMessageDialog(null,
+						"Debes loguearte para ver la informacion");
+				
+			}
+		});
 
 		jLabel1.setFont(new java.awt.Font("Trajan Pro", 3, 14)); // NOI18N
 		jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,6 +160,7 @@ public class Diseno extends JFrame {
 			}
 		});
 		jToggleButton1.setName("Buscar");
+		jToggleButton1.setIcon(new ImageIcon("resources/guardar.jpg"));
 
 		jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,12 +173,56 @@ public class Diseno extends JFrame {
 		jComboBox1.setToolTipText("");
 
 		jRadioButton1.setText("PC");
+		jRadioButton1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jRadioButton2.setSelected(false);
+				jRadioButton3.setSelected(false);
+				jRadioButton4.setSelected(false);
+				Controlador.getInstance().obtenerProductosPlataforma("PC");
+
+			}
+		});
 
 		jRadioButton2.setText("PS4");
+		jRadioButton2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jRadioButton1.setSelected(false);
+				jRadioButton3.setSelected(false);
+				jRadioButton4.setSelected(false);
+				Controlador.getInstance().obtenerProductosPlataforma("PS4");
+
+			}
+		});
 
 		jRadioButton3.setText("XONE");
+		jRadioButton3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jRadioButton1.setSelected(false);
+				jRadioButton2.setSelected(false);
+				jRadioButton4.setSelected(false);
+				Controlador.getInstance().obtenerProductosPlataforma("XBOXONE");
+
+			}
+		});
 
 		jRadioButton4.setText("Switch");
+		jRadioButton4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jRadioButton1.setSelected(false);
+				jRadioButton2.setSelected(false);
+				jRadioButton3.setSelected(false);
+				Controlador.getInstance().obtenerProductosPlataforma("Switch");
+
+			}
+		});
 
 		jLabel2.setText("Seleccione plataforma:");
 
@@ -130,8 +230,8 @@ public class Diseno extends JFrame {
 		jLabel3.setText("Resultados de la búsqueda");
 		jLabel3.setToolTipText("");
 
-		resultadoBusqueda.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = { "----", "----", "----", "----", "----" };
+		listaProductos.setModel(new javax.swing.AbstractListModel<String>() {
+			String[] strings = {};
 
 			public int getSize() {
 				return strings.length;
@@ -141,11 +241,10 @@ public class Diseno extends JFrame {
 				return strings[i];
 			}
 		});
-		jScrollPane2.setViewportView(resultadoBusqueda);
+		jScrollPane2.setViewportView(listaProductos);
 
 		jList2.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
-					"Item 5" };
+			String[] strings = {};
 
 			public int getSize() {
 				return strings.length;
@@ -160,26 +259,50 @@ public class Diseno extends JFrame {
 		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		jLabel4.setText("Cesta");
 
-		jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-		jButton3.setText("¡Confirmar compra!");
-		jButton3.setToolTipText("");
+		botonComprar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+		botonComprar.setText("¡Confirmar compra!");
+		botonComprar.setToolTipText("");
+		botonComprar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!usuarioLogueado) JOptionPane.showMessageDialog(null,"Debes iniciar sesion para comprar");
+				else {
+					JOptionPane.showMessageDialog(null,"Compra realizada con exito");
+				}
+				
+			}
+		});
 
-		jButton4.setText("Añadir a cesta >>");
-		jButton4.setName("anadirCesta"); // NOI18N
+		botonAnadirCesta.setText("Añadir a cesta >>");
+		botonAnadirCesta.setName("anadirCesta"); // NOI18N
+		botonAnadirCesta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anadirCompra(listaProductos.getSelectedValue());
+				
+			}
+		});
 
 		jButton5.setText("<< Quitar de cesta");
-
+		jButton5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				eliminarCompra(jList2.getSelectedValue());
+				
+			}
+		});
 		informacion.setColumns(20);
 		informacion.setRows(5);
 		jScrollPane1.setViewportView(informacion);
-		informacion.setEditable(false);
 
-		jLabel5.setText("Informacion");
+		jLabel5.setText("Información");
 
-		valoraciones.setColumns(20);
-		valoraciones.setRows(5);
-		jScrollPane4.setViewportView(valoraciones);
-		valoraciones.setEditable(false);
+		textoValoraciones.setColumns(20);
+		textoValoraciones.setRows(5);
+		jScrollPane4.setViewportView(textoValoraciones);
 
 		jLabel6.setText("Valoraciones");
 
@@ -232,7 +355,7 @@ public class Diseno extends JFrame {
 																																								javax.swing.GroupLayout.Alignment.LEADING,
 																																								false)
 																																						.addComponent(
-																																								jButton4,
+																																								botonAnadirCesta,
 																																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																																								Short.MAX_VALUE)
@@ -300,7 +423,7 @@ public class Diseno extends JFrame {
 																						.addComponent(
 																								jScrollPane3)
 																						.addComponent(
-																								jButton3,
+																								botonComprar,
 																								javax.swing.GroupLayout.DEFAULT_SIZE,
 																								221,
 																								Short.MAX_VALUE)))
@@ -317,7 +440,7 @@ public class Diseno extends JFrame {
 																				18,
 																				18)
 																		.addComponent(
-																				jButton2)
+																				BotonPerfil)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																		.addGroup(
@@ -330,9 +453,9 @@ public class Diseno extends JFrame {
 																								38,
 																								javax.swing.GroupLayout.PREFERRED_SIZE)
 																						.addComponent(
-																								jButton1,
+																								botonLogin,
 																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								66,
+																								85,
 																								javax.swing.GroupLayout.PREFERRED_SIZE))
 																		.addContainerGap())))
 						.addGroup(
@@ -436,12 +559,12 @@ public class Diseno extends JFrame {
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
-																jButton2,
+																BotonPerfil,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																28,
 																Short.MAX_VALUE)
 														.addComponent(
-																jButton1,
+																botonLogin,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE))
@@ -524,7 +647,7 @@ public class Diseno extends JFrame {
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addComponent(
-																				jButton3,
+																				botonComprar,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
 																				37,
 																				javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -535,7 +658,7 @@ public class Diseno extends JFrame {
 																				14,
 																				14)
 																		.addComponent(
-																				jButton4)
+																				botonAnadirCesta)
 																		.addGap(18,
 																				18,
 																				18)
@@ -588,11 +711,16 @@ public class Diseno extends JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+	private void botonLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_botonLoginActionPerformed
 
-		login.setVisible(true);
+		if(!usuarioLogueado) login.setVisible(true);
+		else {
+			botonLogin.setText("Login");
+			BotonPerfil.setText("Perfil");
+			usuarioLogueado = false;
+		}
 
-	}// GEN-LAST:event_jButton1ActionPerformed
+	}// GEN-LAST:event_botonLoginActionPerformed
 
 	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
 		// TODO add your handling code here:
@@ -601,16 +729,32 @@ public class Diseno extends JFrame {
 	private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jToggleButton1ActionPerformed
 		// TODO add your handling code here:
 		System.out.println("buscando..." + jTextField1.getText());
-		p = Controlador.getInstance().buscarProducto(jTextField1.getText());
-		if (p != null) {
-			actualizarLista();
+		productosMostrados = Controlador.getInstance().buscarProducto(
+				jTextField1.getText());
+		if (!productosMostrados.isEmpty()) {
+			actualizarLista(productosMostrados);
 		}
 	}// GEN-LAST:event_jToggleButton1ActionPerformed
 
-	private void actualizarLista() {
+	
+	private void anadirCompra(String compra) {
+		modelo.addElement(compra);
+		jList2.setModel(modelo);
+	}
+	private void eliminarCompra(String compra) {
+		modelo.removeElement(compra);
+		jList2.setModel(modelo);
+	}
+	
+	private void actualizarLista(ArrayList<Producto> p2) {
 		// TODO Auto-generated method stub
-		resultadoBusqueda.setModel(new javax.swing.AbstractListModel<String>() {
-			String[] strings = { p.get_nombre() };
+		String[] str = new String[p2.size()];
+		for (int i = 0; i < p2.size(); i++) {
+			str[i] = p2.get(i).get_nombre();
+		}
+		str.clone();
+		listaProductos.setModel(new javax.swing.AbstractListModel<String>() {
+			String[] strings = str.clone();
 
 			public int getSize() {
 				return strings.length;
@@ -620,46 +764,64 @@ public class Diseno extends JFrame {
 				return strings[i];
 			}
 		});
-		informacion.setText("Precio:\t" + p.get_nombre() + "\n"
-				+ "Plataforma:\t" + p.get_genero() + "\nPrecio:\t"
-				+ Double.toString(p.get_precio()));
+		/*informacion.setText("Precio:\t" + p2.get(0).get_nombre() + "\n"
+				+ "Plataforma:\t" + p2.get(0).get_genero() + "\nPrecio:\t"
+				+ Double.toString(p2.get(0).get_precio()));*/
+		listaProductos.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					informacion.setText(obtenerInfo(listaProductos.getSelectedValue().toString()));
+					textoValoraciones.setText(obtenerValoraciones(listaProductos.getSelectedValue().toString()));
+					
+				}
+
+			}
+		});
+	}
+	protected String obtenerValoraciones(String string) {
+		String devolver = "";
+		for(int i=0; i<productosMostrados.size();i++) {
+			if(productosMostrados.get(i).get_nombre().equalsIgnoreCase(string)) {
+				for(int j=0; j<valoracionesMostradas.size();j++) {
+					if(productosMostrados.get(i).get_id().equalsIgnoreCase(valoracionesMostradas.get(j).get_producto())) {
+						devolver += valoracionesMostradas.get(j).get_usuario() + ": " + valoracionesMostradas.get(j).get_texto()+"\n"; 
+					}
+				}
+				break;
+			}
+		}
+		return devolver;
+	}
+
+	private String obtenerInfo(String producto) {
+		for(int i=0; i<productosMostrados.size();i++) {
+			if(productosMostrados.get(i).get_nombre().equalsIgnoreCase(producto)) {
+				return "Plataforma: "+productosMostrados.get(i).get_genero()+"\nPrecio: "+productosMostrados.get(i).get_precio()+"\nStock: "+productosMostrados.get(i).get_stock();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void login(String nombre,String apellido, String correo, String tipo) {
+		BotonPerfil.setText(nombre);
+		infoUsuario = new InfoUsuario(nombre, apellido, correo, tipo);
+		botonLogin.setText("Logout");
+		usuarioLogueado = true;
+	}
+
+	@Override
+	public void busqueda(ArrayList<Producto> p) {
+		productosMostrados = p;
+		actualizarLista(p);
 
 	}
 
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JButton jButton3;
-	private javax.swing.JButton jButton4;
-	private javax.swing.JButton jButton5;
-	 
-	private javax.swing.JComboBox<String> jComboBox1;
-	private javax.swing.JDialog jDialog1;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JLabel jLabel6;
-	private javax.swing.JList<String> resultadoBusqueda;
-	private javax.swing.JList<String> jList2;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JRadioButton jRadioButton1;
-	private javax.swing.JRadioButton jRadioButton2;
-	private javax.swing.JRadioButton jRadioButton3;
-	private javax.swing.JRadioButton jRadioButton4;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JScrollPane jScrollPane3;
-	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JTextArea informacion;
-	private javax.swing.JTextArea valoraciones;
-	private javax.swing.JTextField jTextField1;
-	private javax.swing.JToggleButton jToggleButton1;
-	// End of variables declaration//GEN-END:variables
+	@Override
+	public void valoraciones(ArrayList<Valoracion> v) {
+		this.valoracionesMostradas = v;
+		
+	}
 }

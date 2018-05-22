@@ -8,16 +8,14 @@ import javax.swing.JOptionPane;
 
 /**
  * Patron DAO con metodos CRUD
- * 
- * @author Usuario
- *
+ * para la entidad producto
+ * @author EZGames
  */
 public class ProductoDAO {
 
 	/**
 	 * permite consultar la lista de productos
-	 * 
-	 * @return
+	 * @return lista de productos
 	 */
 	public ArrayList<Producto> listaDeProductos() {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
@@ -29,13 +27,14 @@ public class ProductoDAO {
 			ResultSet res = consulta.executeQuery();
 			while (res.next()) {
 
-				String cod = res.getString("C”DIGOARTÕCULO");
+				String cod = res.getString("C√ìDIGOART√çCULO");
 				String plat = res.getString("PLATAFORMA");
-				String nomartic = res.getString("NOMBREARTÕCULO");
+				String nomartic = res.getString("NOMBREART√çCULO");
 				double precio = res.getDouble("PRECIO");
-				productos.add(new Producto(cod, nomartic, plat, precio, 12));
-				System.out.println(cod + "--------" + plat + "--------"
-						+ nomartic + "--------" + precio);
+				int stock = res.getInt("STOCK");
+				productos.add(new Producto(cod, nomartic, plat, precio, stock));
+				System.out.println(cod + "--------" + plat + "--------" + nomartic + "--------"
+						+ precio);
 			}
 			res.close();
 			consulta.close();
@@ -47,4 +46,5 @@ public class ProductoDAO {
 		}
 		return productos;
 	}
+
 }

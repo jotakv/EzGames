@@ -5,12 +5,12 @@ import java.sql.*;
 /**
  * Clase que permite conectar con la base de datos
  * 
- * @author chenao
+ * @author EZgames
  *
  */
 public class DbConnection {
 	/** Parametros de conexion */
-	static String bd = "pruebaaa";
+	static String bd = "EZGames";
 	static String login = "root";
 	static String password = "";
 	static String url = "jdbc:mysql://localhost/" + bd;
@@ -22,11 +22,11 @@ public class DbConnection {
 		try {
 			// obtenemos el driver de para mysql
 			Class.forName("com.mysql.jdbc.Driver");
-			// obtenemos la conexión
+			// obtenemos la conexiï¿½n
 			connection = DriverManager.getConnection(url, login, password);
 
 			if (connection != null) {
-				System.out.println("Conexión a base de datos " + bd + " OK\n");
+				System.out.println("Conexion a base de datos " + bd + " OK\n");
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -37,7 +37,7 @@ public class DbConnection {
 		}
 	}
 
-	/** Permite retornar la conexión */
+	/** Permite retornar la conexion */
 	public Connection getConnection() {
 		return connection;
 	}

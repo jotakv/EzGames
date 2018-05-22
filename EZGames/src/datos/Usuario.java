@@ -1,16 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package datos;
 
 /**
- *
- * @author usuario_local
+ * Clase que representa los usuarios
+ * logueados en el sistema
+ * @author EZGames
  */
 public class Usuario extends Persona {
 
+	/**
+	 * Constructor de la clase usuario que
+	 * llama al constructor de su padre: Persona
+	 * @param id
+	 * @param passwd
+	 * @param name
+	 * @param admin
+	 * @param apellido
+	 * @param correo
+	 */
 	public Usuario(int id, String passwd, String name, int admin,
 			String apellido, String correo) {
 		super(id, passwd, name, admin, apellido, correo);

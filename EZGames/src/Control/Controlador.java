@@ -1,4 +1,4 @@
-package Control;
+package control;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import datos.Gestion;
 import datos.Producto;
 
-public final class Controlador implements Observator<Object> {
+public final class Controlador {
 
 	private static Controlador instance = null;// PATRON SINGLETON
 	// atributo privado estatico de la clase
@@ -19,9 +19,6 @@ public final class Controlador implements Observator<Object> {
 	 */
 	private Controlador() {
 		gestion = new Gestion();
-		// obtenerUsuarios();
-		// obtenerAdministradores();
-		// obtenerProductos();
 	}
 
 	/**
@@ -36,61 +33,12 @@ public final class Controlador implements Observator<Object> {
 		return instance;
 	}
 
-	@Override
-	public void addObservador(Object o) {
+	public void addObservador(ObservatorClases o) {
 		gestion.addObservador(o);
 	}
 
-	@Override
-	public void removeObservador(Object o) {
+	public void removeObservador(ObservatorClases o) {
 		gestion.removeObservador(o);
-	}
-
-	@Override
-	public void notifyLogin() {
-
-	}
-
-	@Override
-	public void notifyCompra() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
-	}
-
-	@Override
-	public void notifyModProducto() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
-	}
-
-	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
-		return gestion.obtenerProductosPlataforma(plataforma);
-	}
-
-	public Producto buscarProducto(String nombre) {
-		Producto p = gestion.existeProducto(nombre);
-		if (p != null)
-			JOptionPane.showMessageDialog(null, "Producto encontrado\n");
-		else
-			JOptionPane.showMessageDialog(null, "Producto no encontrado\n");
-
-		return p;
 	}
 
 	public void login(String usuario, String passwd) {
@@ -99,8 +47,22 @@ public final class Controlador implements Observator<Object> {
 			JOptionPane.showMessageDialog(null, "Usuario logeado\n");
 		else
 			JOptionPane.showMessageDialog(null,
-					"Usuario o contraseña incorrectas\n");
+					"Usuario o contraseï¿½a incorrectas\n");
 
+	}
+
+	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
+		return gestion.obtenerProductosPlataforma(plataforma);
+	}
+
+	public ArrayList<Producto> buscarProducto(String nombre) {
+		ArrayList<Producto> prodTemp = gestion.existeProducto(nombre);
+		if (!prodTemp.isEmpty())
+			JOptionPane.showMessageDialog(null, "Producto encontrado\n");
+		else
+			JOptionPane.showMessageDialog(null, "Producto no encontrado\n");
+
+		return prodTemp;
 	}
 
 	public boolean isLoged() {

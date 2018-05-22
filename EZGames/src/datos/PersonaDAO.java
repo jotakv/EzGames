@@ -32,14 +32,16 @@ public class PersonaDAO {
 				String name = res.getString("USUARIOS");
 				String pass = res.getString("PASSWORD");
 				int isAdmin = res.getInt("ADMINISTRADOR");
+				String apellido = res.getString("APELLIDO");
+				String correo = res.getString("CORREO");
 				// quitar esta lineay todos los System.out en general
 				System.out.println(id + "\t" + name + "\t" + pass + "\t"
-						+ isAdmin);
+						+ isAdmin + apellido + correo);
 				if (isAdmin == 1) {
-					personas.add(new Administrador(id, pass, name, isAdmin, "",
-							""));
+					personas.add(new Administrador(id, pass, name, isAdmin, apellido,
+							correo));
 				} else {
-					personas.add(new Usuario(id, pass, name, isAdmin, "", ""));
+					personas.add(new Usuario(id, pass, name, isAdmin, apellido, correo));
 				}
 			}
 			res.close();

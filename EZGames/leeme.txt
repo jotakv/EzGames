@@ -1,0 +1,22 @@
+Codigo fuente en java, bbdd en sql
+
+Requisitos
+XAMPP with PHP 7.2.5, 7.1.17, 7.0.30 & 5.6.36
+
+	Servidor Apache
+	Mysql
+		resources/Ezgames.sql
+
+Eclipse luna o posterior
+
+
+*Queda por hacer el ejecutable
+
+cofigurar direve conector de mysql 
+	mysql-connector-java-5.1.46-bin
+arrancar xamp
+	importar el script que carga la bbdd Ezgames.sql
+
+localhost/phpmyadmin
+
+Arrancar el Main del proyeto 
