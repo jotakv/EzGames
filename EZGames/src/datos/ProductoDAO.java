@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * Patron DAO con metodos CRUD
- * para la entidad producto
+ *Clase que permite implementar el patron DAO
+ * en lo referente a las valoraciones
  * @author EZGames
  */
 public class ProductoDAO {

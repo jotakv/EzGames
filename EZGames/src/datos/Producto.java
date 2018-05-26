@@ -70,6 +70,10 @@ public class Producto {
 	public void set_precio(double _precio) {
 		this._precio = _precio;
 	}
+	/**
+	 * Devuelve el ID del producto
+	 * @return ID del producto
+	 */
 	public String get_id() {
 		return _id;
 	}

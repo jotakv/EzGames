@@ -5,14 +5,14 @@ import java.sql.*;
 /**
  * Clase que permite conectar con la base de datos
  * 
- * @author EZgames
+ * @author chenao
  *
  */
 public class DbConnection {
 	/** Parametros de conexion */
 	static String bd = "EZGames";
 	static String login = "root";
-	static String password = "";
+	static String password = "fastfive";
 	static String url = "jdbc:mysql://localhost/" + bd;
 
 	Connection connection = null;

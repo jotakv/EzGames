@@ -24,8 +24,7 @@ public final class Controlador {
 	/**
 	 * Metodo get estatico y publico para devolver el atributo. Devuelve la
 	 * propia instancia. PATRON SINGLETON
-	 * 
-	 * @return
+	 * @return this
 	 */
 	public static Controlador getInstance() {
 		if (instance == null)
@@ -33,14 +32,25 @@ public final class Controlador {
 		return instance;
 	}
 
+	/**
+	 * Comunica con gestion para anadir observer
+	 * @param o observadores a anadir
+	 */
 	public void addObservador(ObservatorClases o) {
 		gestion.addObservador(o);
 	}
-
+	/**
+	 * Comunica con gestion para eliminar observer
+	 * @param o observador a remover
+	 */
 	public void removeObservador(ObservatorClases o) {
 		gestion.removeObservador(o);
 	}
-
+	/**
+	 * Controla la gestion de loguearse del usuario
+	 * @param usuario nombre de usuario
+	 * @param passwd contrasena del usuario
+	 */
 	public void login(String usuario, String passwd) {
 		loged = gestion.login(usuario, passwd);
 		if (loged)
@@ -50,21 +60,27 @@ public final class Controlador {
 					"Usuario o contrase�a incorrectas\n");
 
 	}
-
+	/**
+	 * Obtiene lista de productos por plataforma
+	 * @param plataforma nombre de la plataforma para filtrar
+	 * @return lista de productos segun la busqueda
+	 */
 	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
 		return gestion.obtenerProductosPlataforma(plataforma);
 	}
-
+	/**
+	 * Permite buscar un producto
+	 * @param nombre nombre del producto a buscar
+	 * @return lista de productos segun la busqueda
+	 */
 	public ArrayList<Producto> buscarProducto(String nombre) {
 		ArrayList<Producto> prodTemp = gestion.existeProducto(nombre);
-		if (!prodTemp.isEmpty())
-			JOptionPane.showMessageDialog(null, "Producto encontrado\n");
-		else
-			JOptionPane.showMessageDialog(null, "Producto no encontrado\n");
-
 		return prodTemp;
 	}
-
+	/**
+	 * Permite conocer si el usuario esta logueado
+	 * @return logueado o no
+	 */
 	public boolean isLoged() {
 		return loged;
 	}

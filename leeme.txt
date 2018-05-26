@@ -1,2 +1,1 @@
-crearos cada uno un usuario de github
-para ir haciendo la parte del control de versiones
+El código fuente del proyecto está en la carpeta EZGames

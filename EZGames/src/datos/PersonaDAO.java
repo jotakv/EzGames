@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * Patron DAO con metodos CRUD para la entidad persona
+ *Clase que permite implementar el patron DAO
+ *en lo referente a las valoraciones
  * 
- * @author Usuario
+ * @author EZGames
  *
  */
 public class PersonaDAO {
 
 	/**
 	 * permite consultar la lista de productos
-	 * 
-	 * @return
+	 * @return Lista de productos
 	 */
 	public ArrayList<Persona> listaDePersonas() {
 		ArrayList<Persona> personas = new ArrayList<Persona>();

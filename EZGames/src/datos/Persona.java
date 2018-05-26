@@ -31,15 +31,24 @@ public class Persona {
 		_apellido = apellido;
 		_correo = correo;
 	}
-
+	/**
+	 * Devuelve el nombre del usuario
+	 * @return nombre
+	 */
 	public String get_nombre() {
 		return _nombre;
 	}
-
+	/**
+	 * Devuelve el apellido del usuario
+	 * @return apellido
+	 */
 	public String get_apellido() {
 		return _apellido;
 	}
-
+	/**
+	 * Devuelve el correo electronico del usuario
+	 * @return correo electronico
+	 */
 	public String get_correo() {
 		return _correo;
 	}

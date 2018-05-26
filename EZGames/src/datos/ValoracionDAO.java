@@ -5,10 +5,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
+/**
+ * Clase que permite implementar el patron DAO
+ * en lo referente a las valoraciones
+ * @author EZGames
+ *
+ */
 public class ValoracionDAO {
 
-	
+	/**
+	 * Permite consultar la lista de valoraciones
+	 * @return lista de valoraciones
+	 */
 	public ArrayList<Valoracion> listaDeValoraciones() {
 		ArrayList<Valoracion> valoraciones = new ArrayList<Valoracion>();
 		DbConnection conex = new DbConnection();

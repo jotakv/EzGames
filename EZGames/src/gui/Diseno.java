@@ -10,16 +10,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import control.Controlador;
-import control.Observator;
 import control.ObservatorClases;
 import datos.Producto;
 import datos.Valoracion;
@@ -732,8 +729,10 @@ public class Diseno extends JFrame implements ObservatorClases {
 		productosMostrados = Controlador.getInstance().buscarProducto(
 				jTextField1.getText());
 		if (!productosMostrados.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Producto encontrado\n");
 			actualizarLista(productosMostrados);
 		}
+		else JOptionPane.showMessageDialog(null, "Producto no encontrado\n");
 	}// GEN-LAST:event_jToggleButton1ActionPerformed
 
 	

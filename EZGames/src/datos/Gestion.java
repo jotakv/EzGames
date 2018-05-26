@@ -77,7 +77,9 @@ public class Gestion implements Observator<ObservatorClases> {
 		
 	}
 
-
+	/**
+	 * Obtiene los usuarios registrados de la base de datos y los almacena en una lista
+	 */
 	private void obtenerUsuarios() {
 		PersonaDAO personaDAO = new PersonaDAO();
 		ArrayList<Persona> personas = new ArrayList<Persona>();
@@ -102,8 +104,7 @@ public class Gestion implements Observator<ObservatorClases> {
 	/**
 	 * Permite buscar en la lista de productos si el producto buscado existe
 	 * 
-	 * @param nombre
-	 *            nombre del producto a buscar
+	 * @param nombre nombre del producto a buscar
 	 * @return producto si se encuentra o null
 	 */
 	public ArrayList<Producto> existeProducto(String nombre) {
@@ -117,6 +118,11 @@ public class Gestion implements Observator<ObservatorClases> {
 		return prodTemp;
 	}
 
+	/**
+	 * Obtiene los productos filtrados por plataforma
+	 * @param plataforma Indica la plataforma para filtrar
+	 * @return lista de productos filtrados
+	 */
 	public ArrayList<Producto> obtenerProductosPlataforma(String plataforma) {
 		ArrayList<Producto> prodTemp = new ArrayList<Producto>();
 		Iterator<Producto> it = productos.iterator();
@@ -130,12 +136,6 @@ public class Gestion implements Observator<ObservatorClases> {
 		return prodTemp;
 	}
 
-	private void notificaProductos(ArrayList<Producto> prodTemp) {
-		for (ObservatorClases o : this.observadores) {
-			o.busqueda(prodTemp);
-		}
-
-	}
 
 	/**
 	 * Permite loguear a un usuario en el sistema
@@ -168,16 +168,37 @@ public class Gestion implements Observator<ObservatorClases> {
 		return false;
 	}
 
+	/**
+	 * Permite registrar observadores
+	 */
 	@Override
 	public void addObservador(ObservatorClases o) {
 		observadores.add(o);
 	}
-
+	/**
+	 * Permite eliminar observadores
+	 */
 	@Override
 	public void removeObservador(ObservatorClases o) {
 		observadores.remove(o);
 	}
+	/**
+	 * Patron observer para informar a la GUI
+	 * @param prodTemp lista de productos a mostrar
+	 */
+	private void notificaProductos(ArrayList<Producto> prodTemp) {
+		for (ObservatorClases o : this.observadores) {
+			o.busqueda(prodTemp);
+		}
 
+	}
+	/**
+	 * Patron observer para informar a la GUI
+	 * @param nombre Nombre del usuario logueado
+	 * @param apellido Apellido del usuario logueado
+	 * @param correo Correo del usuario logueado
+	 * @param user Tipo de usuario logueado
+	 */
 	private void notificaLogueado(String nombre, String apellido, String correo, int user) {
 		String user1 = "";
 		if(user == 1) user1 = "Administrador";
@@ -186,6 +207,10 @@ public class Gestion implements Observator<ObservatorClases> {
 			o.login(nombre,apellido,correo,user1);
 		}
 	}
+	/**
+	 * Patron observer para informar a la GUI
+	 * @param valoraciones2 Lista de valoraciones de los productos
+	 */
 	private void notificaValoraciones(ArrayList<Valoracion> valoraciones2) {
 		for (ObservatorClases o : this.observadores) {
 			o.valoraciones(valoraciones2);
